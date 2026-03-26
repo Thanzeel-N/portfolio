@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 
 const FRAME_COUNT = 48;
 
@@ -23,10 +23,7 @@ export default function Hero() {
   const [displayText, setDisplayText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
-  });
+  const scrollYProgress = useMotionValue(0);
 
   // Preload all frames
   useEffect(() => {
@@ -36,11 +33,30 @@ export default function Hero() {
     });
   }, []);
 
-  // Frame index driven by scroll
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    const idx = Math.min(FRAME_COUNT - 1, Math.max(0, Math.round(latest * (FRAME_COUNT - 1))));
-    setFrameIndex(idx);
-  });
+  // Manual scroll progress — works in all browsers regardless of overflow CSS
+  useEffect(() => {
+    const updateProgress = () => {
+      const el = containerRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const totalScrollable = el.offsetHeight - window.innerHeight;
+      if (totalScrollable <= 0) return;
+      const scrolled = -rect.top;
+      const p = Math.max(0, Math.min(1, scrolled / totalScrollable));
+      scrollYProgress.set(p);
+    };
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+    return () => window.removeEventListener('scroll', updateProgress);
+  }, [scrollYProgress]);
+
+  // Frame index driven by scroll progress
+  useEffect(() => {
+    return scrollYProgress.on('change', (latest) => {
+      const idx = Math.min(FRAME_COUNT - 1, Math.max(0, Math.round(latest * (FRAME_COUNT - 1))));
+      setFrameIndex(idx);
+    });
+  }, [scrollYProgress]);
 
   // Typewriter effect
   useEffect(() => {
