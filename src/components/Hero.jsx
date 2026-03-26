@@ -6,7 +6,7 @@ const FRAME_COUNT = 48;
 const framePaths = Array.from({ length: FRAME_COUNT }, (_, i) => {
   const num = String(i + 1).padStart(4, '0');
   const time = (i / 6).toFixed(2);
-  return `/images/hero%20section/frame_${num}_${time}s.png`;
+  return `/images/hero%20section/frame_${num}_${time}s.webp`;
 });
 
 const titles = [
