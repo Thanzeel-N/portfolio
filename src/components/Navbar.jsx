@@ -28,7 +28,7 @@ export default function Navbar() {
           className="brand-mark"
           variants={{ hover: { rotate: 8, scale: 1.08, borderRadius: '30%', transition: { type: 'spring', stiffness: 380, damping: 18 } } }}
         >
-          MT
+          <span className="brand-initials" aria-hidden="true">MTN</span>
         </Motion.span>
         <span className="brand-copy">Mohammad<br />Thanzeel</span>
       </Motion.a>

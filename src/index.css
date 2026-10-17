@@ -27,6 +27,7 @@ button { font: inherit; }
 .site-header.is-scrolled { background: rgba(242, 240, 233, .9); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
 .brand { display: flex; align-items: center; gap: 11px; }
 .brand-mark { position: relative; width: 40px; height: 40px; display: grid; place-items: center; overflow: hidden; background: var(--ink); color: var(--acid); border-radius: 50%; font: 500 12px 'DM Mono'; box-shadow: 0 0 0 0 var(--acid); transition: box-shadow .3s ease; }
+.brand-initials { font: 600 10px 'DM Mono'; letter-spacing: -.09em; transform: translateX(-.04em); }
 .brand:hover .brand-mark { box-shadow: 0 0 0 4px rgba(184, 255, 53, .28); }
 .brand-copy { font-size: 11px; line-height: 1.05; font-weight: 800; text-transform: uppercase; letter-spacing: -.02em; }
 nav { display: flex; align-items: center; gap: clamp(22px, 3vw, 46px); font-size: 13px; font-weight: 600; }
