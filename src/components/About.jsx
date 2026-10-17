@@ -8,7 +8,7 @@ export default function About() {
         <div className="about-layout">
           <h2>Code with clarity.<br /><em>Design with intent.</em></h2>
           <div className="about-copy">
-            <p>I am Mohammad Thanzeel N, a full-stack developer at Metamorph. I turn product ideas into reliable digital experiences — from the component systems people see to the APIs and data flows working behind them.</p>
+            <p>I am Mohammed Thanzeel N, a full-stack developer at Metamorph. I turn product ideas into reliable digital experiences — from the component systems people see to the APIs and data flows working behind them.</p>
             <p>My foundation in Python and Django gives me strong backend instincts, while Next.js, React and Flutter let me deliver polished products across web and mobile.</p>
           </div>
         </div>

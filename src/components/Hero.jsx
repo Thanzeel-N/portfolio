@@ -25,9 +25,12 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
           >
             <img
-              src="/images/avatar-3d-v1.png"
-              alt="3D portrait of Mohammad Thanzeel N"
+              src="/images/avatar-3d-v2.webp"
+              alt="3D portrait of Mohammed Thanzeel N"
+              width="900"
+              height="1350"
               loading="eager"
+              decoding="async"
               fetchPriority="high"
             />
           </Motion.figure>
@@ -45,7 +48,7 @@ export default function Hero() {
         </div>
 
         <Motion.div className="minimal-meta" variants={reveal} initial="hidden" animate="show" custom={0.26}>
-          <span>Mohammad Thanzeel N</span>
+          <span>Mohammed Thanzeel N</span>
           <span>Malappuram, India</span>
           <span>Scroll to explore &#8595;</span>
         </Motion.div>

@@ -18,7 +18,7 @@ export default function Navbar() {
       <Motion.a
         className="brand"
         href="#top"
-        aria-label="Mohammad Thanzeel, home"
+        aria-label="Mohammed Thanzeel, home"
         initial={{ opacity: 0, x: -16 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -30,7 +30,7 @@ export default function Navbar() {
         >
           <span className="brand-initials" aria-hidden="true">MTN</span>
         </Motion.span>
-        <span className="brand-copy">Mohammad<br />Thanzeel</span>
+        <span className="brand-copy">Mohammed<br />Thanzeel</span>
       </Motion.a>
       <button className="menu-button" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Toggle menu"><span /><span /></button>
       <nav className={open ? 'nav-open' : ''} aria-label="Primary navigation">
