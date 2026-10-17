@@ -1,65 +1,42 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { motion as Motion } from 'framer-motion';
 
-const navItems = [
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Education', href: '#education' },
-  { label: 'Contact', href: '#contact' },
-];
+const links = [['Work', '#projects'], ['Experience', '#experience'], ['About', '#about'], ['Contact', '#contact']];
 
 export default function Navbar() {
+  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', onScroll);
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const handleClick = (e, href) => {
-    e.preventDefault();
-    setMenuOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
-    <motion.nav
-      className={`navbar ${scrolled ? 'scrolled' : ''}`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, delay: 2.2 }}
-    >
-      <a href="#" className="nav-logo">&lt;TN /&gt;</a>
-
-      <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
-        {navItems.map((item, i) => (
-          <motion.li
-            key={item.label}
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 2.4 + i * 0.1 }}
-          >
-            <a href={item.href} onClick={(e) => handleClick(e, item.href)}>
-              {item.label}
-            </a>
-          </motion.li>
-        ))}
-      </ul>
-
-      <button
-        className={`nav-toggle ${menuOpen ? 'active' : ''}`}
-        onClick={() => setMenuOpen(!menuOpen)}
-        aria-label="Toggle navigation"
+    <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
+      <Motion.a
+        className="brand"
+        href="#top"
+        aria-label="Mohammad Thanzeel, home"
+        initial={{ opacity: 0, x: -16 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        whileHover="hover"
       >
-        <span />
-        <span />
-        <span />
-      </button>
-    </motion.nav>
+        <Motion.span
+          className="brand-mark"
+          variants={{ hover: { rotate: 8, scale: 1.08, borderRadius: '30%', transition: { type: 'spring', stiffness: 380, damping: 18 } } }}
+        >
+          MT
+        </Motion.span>
+        <span className="brand-copy">Mohammad<br />Thanzeel</span>
+      </Motion.a>
+      <button className="menu-button" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Toggle menu"><span /><span /></button>
+      <nav className={open ? 'nav-open' : ''} aria-label="Primary navigation">
+        {links.map(([label, href]) => <a key={href} href={href} onClick={() => setOpen(false)}>{label}</a>)}
+        <a className="nav-cta" href="mailto:thanzeelmtn@gmail.com">Let's talk <span aria-hidden="true">&#8599;</span></a>
+      </nav>
+    </header>
   );
 }

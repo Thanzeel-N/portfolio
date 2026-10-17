@@ -1,126 +1,23 @@
-import { useRef, useEffect, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
-
-const stats = [
-  { number: 4, suffix: '+', label: 'Projects Delivered' },
-  { number: 2, suffix: '', label: 'Freelance Clients' },
-  { number: 1, suffix: '', label: 'Internship' },
-  { number: 2025, suffix: '', label: 'Graduate' },
-];
-
-function AnimatedCounter({ target, suffix, inView }) {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-    let start = 0;
-    const duration = target > 100 ? 2000 : 1500;
-    const increment = target / (duration / 16);
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= target) {
-        setCount(target);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(start));
-      }
-    }, 16);
-    return () => clearInterval(timer);
-  }, [inView, target]);
-
-  return (
-    <span className="stat-number">
-      {count}
-      {suffix}
-    </span>
-  );
-}
+import { motion as Motion } from 'framer-motion';
 
 export default function About() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
-
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: { staggerChildren: 0.12 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-    },
-  };
-
   return (
-    <section className="section" id="about" ref={ref}>
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate={inView ? 'visible' : 'hidden'}
-      >
-        <motion.div className="section-line" variants={itemVariants} />
-        <motion.h2 className="section-title" variants={itemVariants}>
-          About Me
-        </motion.h2>
-        <motion.p className="section-subtitle" variants={itemVariants}>
-          Turning ideas into scalable digital solutions
-        </motion.p>
-
-        <div className="about-grid">
-          <motion.div className="about-text" variants={itemVariants}>
-            <p>
-              I'm a passionate{' '}
-              <span className="about-highlight">
-                Python &amp; Django Full-Stack Developer
-              </span>{' '}
-              with a deep love for building real-time systems and scalable
-              architectures. From crafting robust REST APIs to shipping
-              cross-platform mobile apps with React Native, I thrive at the
-              intersection of clean code and impactful user experiences.
-            </p>
-            <p>
-              My approach combines technical depth with an eye for design — I
-              believe great software should not only work flawlessly but also
-              feel intuitive and delightful. Whether it's WebSocket-powered
-              live tracking, offline-first mobile apps, or automated PDF
-              reporting, I bring ideas to life with precision and creativity.
-            </p>
-            <p>
-              Currently open to{' '}
-              <span className="about-highlight">
-                freelance and full-time opportunities
-              </span>{' '}
-              where I can contribute to building products that make a real impact.
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="stats-grid"
-            variants={containerVariants}
-          >
-            {stats.map((stat, i) => (
-              <motion.div
-                key={i}
-                className="stat-card"
-                variants={itemVariants}
-                whileHover={{ scale: 1.05 }}
-              >
-                <AnimatedCounter
-                  target={stat.number}
-                  suffix={stat.suffix}
-                  inView={inView}
-                />
-                <div className="stat-label">{stat.label}</div>
-              </motion.div>
-            ))}
-          </motion.div>
+    <section className="section about-section" id="about">
+      <Motion.div className="about-panel" initial={{ opacity: 0, scale: 0.98 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
+        <p className="eyebrow">01 / About me</p>
+        <div className="about-layout">
+          <h2>Code with clarity.<br /><em>Design with intent.</em></h2>
+          <div className="about-copy">
+            <p>I am Mohammad Thanzeel N, a full-stack developer at Metamorph. I turn product ideas into reliable digital experiences — from the component systems people see to the APIs and data flows working behind them.</p>
+            <p>My foundation in Python and Django gives me strong backend instincts, while Next.js, React and Flutter let me deliver polished products across web and mobile.</p>
+          </div>
         </div>
-      </motion.div>
+        <div className="about-facts">
+          <div><strong>06</strong><span>Featured live products</span></div>
+          <div><strong>Web + Mobile</strong><span>Product range</span></div>
+          <div><strong>Malappuram, IN</strong><span>Based in Kerala</span></div>
+        </div>
+      </Motion.div>
     </section>
   );
 }
